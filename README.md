@@ -44,3 +44,9 @@ This should run on the localhost server on port 8000 http://127.0.0.1:8000
 
 ### For API level documentation
 * http://127.0.0.1:8000/swagger/
+
+### Run test cases
+```
+    python manage.py test
+```
+Location of test weather_api>tests.py
