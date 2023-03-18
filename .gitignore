@@ -1,0 +1,33 @@
+.idea/
+.vscode/
+
+*.pyc
+db.sqlite3
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# C extensions
+*.so
+
+# jupyter notebook
+*.ipynb
+.ipynb_checkpoints
+
+/.gtm/
+
+
+# Virtual Environment
+.venv/
+.env
+.vim/
+.pylintrc
+
+# Code Coverage
+.coverage
+
+venv/
+# Create a symbolic link with "ln -s path/to/.venv venv"
+venv
+
+static/
