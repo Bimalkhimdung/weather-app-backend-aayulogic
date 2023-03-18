@@ -6,10 +6,9 @@ from django.db.models import Avg
 
 from weather_api.models import Weather, WeatherStats
 
-def feed_data_to_model():
+def feed_data_to_model(directory):
     start_time = time.time()
     # path to the directory
-    directory = 'wx_data'
     total_files = os.listdir(directory)
     total_files_length = len(total_files)
 
@@ -94,5 +93,6 @@ def data_analysis_of_weather():
 
 
 def main():
-    feed_data_to_model()
+    directory = 'wx_data'
+    feed_data_to_model(directory)
     data_analysis_of_weather()
