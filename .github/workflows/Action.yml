@@ -2,7 +2,7 @@ name: Complete CI/CD pipeline
 on: 
     push:
         branches: 
-            - main
+            - home
 
 
    # workflow_dispatch:
