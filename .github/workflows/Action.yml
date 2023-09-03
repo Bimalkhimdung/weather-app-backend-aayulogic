@@ -1,13 +1,8 @@
 name: Complete CI/CD pipeline
-
 on: 
     push:
         branches: 
-<<<<<<< HEAD
-
-=======
->>>>>>> Ansible+Github
-            - test
+            - main
 
 
    # workflow_dispatch:
