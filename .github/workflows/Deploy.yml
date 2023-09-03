@@ -1,13 +1,9 @@
 name: Deploy
 on:
-    push: 
-      branches:
-        - none
-<<<<<<< HEAD
-        
-
-=======
->>>>>>> Ansible+Github
+    # push: 
+    #   branches:
+    #     - none
+    workflow_dispatch:
 
 jobs:
     Deploying-and-Operating:
