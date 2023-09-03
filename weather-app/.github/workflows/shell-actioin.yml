@@ -1,0 +1,16 @@
+name: Test Run with shell script
+on:
+    # push:
+    #     branches:
+    #         - test
+ workflow_dispatch:
+jobs:
+    Running-with-script:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checking
+              uses: actions/checkout@v2
+            - name: Make script executable
+              run: chmod +x script.sh
+            - name: runnig shell script
+              run: ./script.sh

@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    home_dir: "/home/bimal/Devops/weather-app-backend-aayulogic"
+    ansible_user: "bimal"
+    inventory_dir: "/home/bimal/Devops/weather-app-backend-aayulogic"
+  tasks:
+    - name: installing 
+      command: apt install python3.10-venv
+      become: true
+    - name: creating venv
+      command: python3 -m venv env
+      args:
+        creates: env
+        chdir: "{{ home_dir }}"
+      become: true
+      # args:
+      #   chdir: "{{ home_dir }}"
+
+    - name: activate venv
+      shell: |
+        . {{ inventory_dir }}/env/bin/activate
+      environment:
+        PATH: "{{ ansible_env.PATH }}:{{ inventory_dir }}/env/bin"
+      run_once: true
+    - name: installing dependencies
+      pip:
+        requirements: requirements.txt
+      become_user: "{{ ansible_user }}"
+      environment:
+        PATH: "{{ ansible_env.PATH }}:{{ inventory_dir }}/env/bin"
+      args:
+        chdir: "{{ home_dir }}"
+
+
+    - name: running migrations
+      command: python3 manage.py migrate
+      environment:
+        PATH: "{{ ansible_env.PATH }}:{{ inventory_dir }}/env/bin"
+      become_user: "{{ ansible_user }}"
+      args:
+        chdir: "{{ home_dir }}"
+
+    - name: running server
+      command: python3 manage.py runserver
+      environment:
+        PATH: "{{ ansible_env.PATH }}:{{ inventory_dir }}/env/bin"
+      become_user: "{{ ansible_user }}"
+      args:
+        chdir: "{{ home_dir }}"

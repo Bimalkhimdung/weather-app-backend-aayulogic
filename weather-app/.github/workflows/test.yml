@@ -1,0 +1,36 @@
+name: testing
+on:
+#  push:
+#   branches:
+#    - test
+ workflow_dispatch:
+
+jobs:
+ test-job:
+  runs-on: ubuntu-latest
+  steps:
+    - name: code checking
+      uses: actions/checkout@v2
+    - name: installing python
+      uses: actions/setup-python@v3
+      with:
+         python-version: 3.8
+    - name: ufw
+      run: |
+        sudo ufw enable
+        sudo ufw allow 8000
+    - name: Deploying
+      shell: bash
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Contents of directory: $(ls)"
+        pip install virtualenv
+        python3 -m venv ${{ github.workspace }}/env
+        source ${{ github.workspace }}/env/bin/activate
+        pip install -r ${{ github.workspace }}/requirements.txt
+        python3 manage.py migrate
+    
+        echo "Starting Django server..."
+        python3 manage.py runserver 192.168.0.108:8000
+        echo "Django server started."
+    # $(pwd)/venv/bin/python3 manage.py migrate

@@ -1,0 +1,27 @@
+name: Ansible script to lunch
+
+on:
+  # push:
+  #  branches:
+  #   - test
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checking version
+        uses: actions/checkout@v2
+
+
+      - name: installing ansible
+        run: |
+           sudo apt update
+           sudo apt install ansible
+      - name: Running ansible
+        shell: bash
+        run: |
+          ansible-playbook ./Playbook/test.yml 
+        env:
+            GITHUB_WORKSPACE: ${{ github.workspace }}
+     
