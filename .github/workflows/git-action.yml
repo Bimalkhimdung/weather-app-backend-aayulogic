@@ -1,0 +1,92 @@
+name: Complete CI/CD pipeline
+
+on:
+  # push:
+  #   branches: ["test"]
+  workflow_dispatch:
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checking code
+        uses: actions/checkout@v2
+
+      - name: installing python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3
+
+      - name: creating venv
+        run: |
+          sudo apt update
+          python3 -m venv env
+          source ${{ github.workspace }}/env/bin/activate
+      - name: cehcking
+        run: python -c "import sys; print('env activate' if hasattr(sys, 'real_prefix') else 'env not activate')"
+      - name: installing depen
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run migration
+        run: python3 manage.py migrate
+      - name: feeding data to data-base
+        run: python manage.py feed_data_to_model
+      - name: Deployment
+        #run: python manage.py runserver
+        run: gunicorn ./gnu_conf.py weather_app.wsgi
+      #storing state
+      # - name: archive vnv
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: env
+      #     path: env
+      # - name: cehcking
+      #   run: python -c "import sys; print('env activate' if hasattr(sys, 'real_prefix') else 'env not activate')"
+      # #- name: creating and activating env
+      #run: |
+      # python3.8 -m venv env
+      # source env/bin/activate
+      # echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+      #echo "PATH=$GITHUB_WORKSPACE/env/bin:$PATH" >> $GITHUB_ENV
+
+      #- name: running script
+      # working-directory:
+      #chmod +x script.sh
+      #  run: |
+      #   chmod +x script.sh
+      #   sh script.sh
+  #       echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+  #        echo "PATH=$GITHUB_WORKSPACE/env/bin:$PATH" >> $GITHUB_ENV
+  #         python -c "import sys; print('Python environment is activated' if hasattr(sys, 'real_prefix') else 'Python environment is not activated')"
+  # Migrating-Data:
+  #   needs: setup
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     # - name: installing python
+  #     #   uses: actions/setup-python@v3
+  #     #   with:
+  #     #     python-version: 3.8
+  #     # - name: activating venv
+  #     #   run: |
+
+  #     #     source ${{ github.workspace }}/env/bin/activate
+  #     # - name: Making Data Migration
+  #     #   #working-directory: ./weather-app-backend-aayulogic/
+  #     - name: migrating data
+  #       working-directory: ${{ github.workspace }}
+  #       run: |
+
+  #         cd ..
+  #         python3 manage.py migrate
+
+  # Feeding-Data-to-Database:
+  #   needs: setup
+  #   runs-on: ubuntu-latest
+  #   steps:
+
+  # Deploy:
+  #   needs: Feeding-Data-to-Database
+  #   runs-on: ubuntu-latest
+  #   steps:

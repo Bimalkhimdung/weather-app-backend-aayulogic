@@ -1,0 +1,93 @@
+name: Complete CI/CD pipeline
+
+on: 
+    push:
+        branches: 
+<<<<<<< HEAD
+
+=======
+>>>>>>> Ansible+Github
+            - test
+
+
+   # workflow_dispatch:
+
+jobs:
+    Code-Check:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checking Code
+              uses: actions/checkout@v2
+    
+    Code-Test:
+        needs: Code-Check
+
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Performing Unit test
+              run: ""
+
+    Deploying-In-DockerHub:
+        needs: Code-Test
+        runs-on: ubuntu-latest
+       
+        steps:
+            - name: Checking Code
+              uses: actions/checkout@v2
+    
+
+            - name: docker login
+              env: 
+                DOCKER_USER: ${{secrets.DOCCKERHUB_USERNAME}}
+                DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+              run: |
+                docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+            - name: building docker image
+              run: |
+                docker build . --file Dockerfile --tag bimalrai/weather-app-backend:${{ github.sha }}
+            - name: Docker Push
+              run: docker push bimalrai/weather-app-backend:${{ github.sha }}
+
+    QA-QC-Test:
+        needs: Deploying-In-DockerHub
+        runs-on: ubuntu-latest
+      
+        steps:
+            - name: Code checkout
+              uses: actions/checkout@v2
+            - name: Fetching-Image-From-DockerHub
+              run: ""
+            - name: Performing Integration Testing
+              run: ""
+            - name: Performing Regression Testing
+              run: ""
+      
+    # Deploying-and-Operating:
+    #     needs: QA-QC-Test
+    #     runs-on: ubuntu-latest
+                 
+    #     steps:
+    #         - name: Code checkout
+    #           uses: actions/checkout@v2
+    #         - name: Running Ansible Playbook
+    #           uses: dawidd6/action-ansible-playbook@v2.5.0
+    #           with:
+    #             playbook: ./ansible.yml
+    #             directory: ./
+    #             key: ${{ secrets.SERVER_PRIVATE_KEY }}
+    #             inventory: ${{ secrets.ANSIBLE_INVENTORY }} #ansible inventory stored in github secrets
+                
+                
+    #             #if: github.event.push_request.merged == 'true'
+    #         #if: github.event_name == 'push' &&  github.ref ==  'refs/heads/main' && github.event.head_commit.message == 'merge'
+             
+
+
+        
+
+                
+
+

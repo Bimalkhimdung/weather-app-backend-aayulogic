@@ -1,0 +1,31 @@
+name: Deploy in docker hub
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout for version
+        uses: actions/checkout@v2
+
+      - name: Build and test
+        run: |
+          docker build -t weather-app-backend .
+          docker run --rm weather-app-backend  manage.py test
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: bimalrai/weather-app-backend :latest
+
+      - name: Deploy to production
+        run: |
+          ssh devops@biraj "docker stop your-container || true"
+          ssh devops@biraj your-user@your-server "docker rm your-container || true"
+          ssh devops@biraj your-user@your-server "docker pull bimalrai/weather-app-backend :latest"
+          ssh devops@biraj your-user@your-server "docker run -d --name your-container -p 192.168.102.238:8000:8000 bimalrai/weather-app-backend :latest "

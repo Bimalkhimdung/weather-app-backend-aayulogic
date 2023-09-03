@@ -1,0 +1,26 @@
+name: Deploy
+on:
+    push: 
+      branches:
+        - none
+<<<<<<< HEAD
+        
+
+=======
+>>>>>>> Ansible+Github
+
+jobs:
+    Deploying-and-Operating:
+     runs-on: ubuntu-latest
+  
+     steps:
+      - name: Code Check
+        uses: actions/checkout@v2
+      - name: Running script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          port: ${{ secrets.PORT_22 }}
+          key: ${{secrets.SERVER_PRIVATE_KEY_CUSTOM}}
+          script: " cd /var/www/weather-app-backend-aayulogic && ./.script/script.sh"

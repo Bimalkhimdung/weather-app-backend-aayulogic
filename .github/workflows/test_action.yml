@@ -1,0 +1,37 @@
+name: ansible run action
+
+on:
+  # push:
+  #   branches:
+  #     - none
+  workflow_dispatch:
+jobs:
+  ansible_installation:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: checking code
+       uses: actions/checkout@v2
+
+     - name: establishing ssh connection
+       run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SERVER_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
+            chmod 600 ~/.ssh/id_rsa
+
+
+     - name: installing python
+       uses: actions/setup-python@v1
+       with:
+         python-version: "3.8"
+     - name: installing ansible
+       run: pip install ansible ansible-lint
+
+     - name: running playbook
+       
+       run: |
+         echo "$(pwd)"
+
+         ansible-playbook ./Playbook/gitaction.yml 
+
+            
