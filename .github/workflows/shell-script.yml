@@ -9,8 +9,8 @@ on:
 
 jobs:
   Script-run-job:
-    runs-on: self-hosted
-    #runs-on: ubuntu-latest
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: checking
         uses: actions/checkout@v2
