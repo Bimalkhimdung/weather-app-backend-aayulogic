@@ -16,4 +16,5 @@ jobs:
         uses: actions/checkout@v2
 
       - name: runnig shell script
-        run: ~/script.sh
+        run: |
+            ./script.sh
