@@ -30,7 +30,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/bimal/Devops/weather-app-backend-aayulogic/env"
+set -gx VIRTUAL_ENV "/home/bimal/DevOps/weather-app-backend-aayulogic/env"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

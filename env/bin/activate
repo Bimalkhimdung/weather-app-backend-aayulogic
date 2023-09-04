@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/bimal/Devops/weather-app-backend-aayulogic/env"
+VIRTUAL_ENV="/home/bimal/DevOps/weather-app-backend-aayulogic/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
