@@ -1,19 +1,19 @@
 name: test for runner
 
 on:
-#     push:
-#       branches:
-#         - test
-  workflow_dispatch:
+     push:
+       branches:
+         - server
+#  workflow_dispatch:
 
 
 jobs:
-  Job-1:
-    # runs-on: self-hosted
-    runs-on: ubuntu-latest
+  Script-run-job:
+    runs-on: self-hosted
+    #runs-on: ubuntu-latest
     steps:
       - name: checking
         uses: actions/checkout@v2
 
       - name: runnig shell script
-        run: bash script.sh
+        run: ~/script.sh
