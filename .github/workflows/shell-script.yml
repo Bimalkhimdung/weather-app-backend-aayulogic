@@ -9,8 +9,8 @@ on:
 
 jobs:
   Script-run-job:
-    runs-on: self-hosted
-    #runs-on: ubuntu-latest
+    #runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: checking
         uses: actions/checkout@v2
@@ -19,4 +19,6 @@ jobs:
         run: |
              chmod +x ./script.sh
              pwd
+             sudo ufw enable
+             sudo ufw allow 8000
              ./script.sh
