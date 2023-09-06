@@ -1,4 +1,4 @@
-#!/home/bimal/Devops/weather-app-backend-aayulogic/env/bin/python3
+#!/home/devops/weather-app-backend-aayulogic/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

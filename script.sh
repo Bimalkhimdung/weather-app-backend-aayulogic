@@ -27,6 +27,6 @@ pip install -r requirements.txt
 # Create and activate the Python environment
 python3 manage.py migrate
 
-python3 manage.py runserver
+python3 manage.py runserver 192.168.102.238:8000
 
 deactivate
