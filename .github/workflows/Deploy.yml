@@ -21,4 +21,4 @@ jobs:
           key: ${{secrets.AWS_PRIVATE_KEY}}
           script: |
                   whoami 
-                  ls -la
+                  ls 
