@@ -20,5 +20,8 @@ jobs:
           port: 22
           key: ${{secrets.AWS_PRIVATE_KEY}}
           script: |
-                  whoami 
-                  ls 
+                  cd weather-app-backend-aayulogic
+                  chmod +x script.sh
+                  ./script.sh
+                  echo "Sucessfully executed script"
+
