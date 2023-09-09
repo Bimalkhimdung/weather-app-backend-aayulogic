@@ -13,10 +13,12 @@ jobs:
       - name: Code Check
         uses: actions/checkout@v2
       - name: Running script
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.9
         with:
-          host: ${{secrets.HOST}}
-          username: ${{secrets.USERNAME}}
-          port: ${{ secrets.PORT_22 }}
-          key: ${{secrets.SERVER_PRIVATE_KEY_CUSTOM}}
-          script: " cd /var/www/weather-app-backend-aayulogic && ./.script/script.sh"
+          host: ${{secrets.AWS_HOST}}
+          username: ubuntu
+          port: 22
+          key: ${{secrets.AWS_PRIVATE_KEY}}
+          script: |
+                  whoami 
+                  ls -la
